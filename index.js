@@ -60,6 +60,24 @@ app.get('/books', (req,res)=>{
     })
 })
 
+app.get('/books/:id',(req,res)=>{
+    const id = req.params.id
+
+    const sql = `SELECT * FROM Books WHERE id = ${id}`
+
+    conn.query(sql, function(err,data){
+        if(err){
+            console.log(err)
+            return
+        }
+
+        const book = data[0]
+
+        res.render('book', {book})
+    })
+
+})
+
 // linka o banco
 const conn = mysql.createConnection({
   host: 'localhost',
